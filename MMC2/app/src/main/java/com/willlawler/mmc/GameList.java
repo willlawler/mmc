@@ -60,12 +60,19 @@ public class GameList extends FragmentActivity implements resetScoreConfirm.Noti
         //use this one to read from internal storage file.
         jsonString = readFile();
 
+
+        //this line should display the whole json file. This is super helpful for debugging. Also sometimes I forget what the Json looks like.
         //textView3.setText(jsonString);
         try{
             JSONObject jsonObj =  new JSONObject(jsonString);
 
             //loop through all games
-            for (int i=0;i<jsonObj.length();i++){
+
+
+
+
+
+            for (int i=jsonObj.length()-1;i>=0;i--){
                 StringBuilder stringBuilder = new StringBuilder();
 
 

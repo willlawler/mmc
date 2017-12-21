@@ -12,8 +12,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -23,7 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -111,7 +108,7 @@ public class MainActivity extends FragmentActivity implements whoWonFragment.Not
     }
 
    // this is turning into a more "save score change" method
-    public void saveGame(){
+    public void saveScore(){
         Log.d("IO", "Game saved");
         currentGame.scoreArray.add(Integer.toString(currentGame.playerOneHealth)+","+Integer.toString(currentGame.playerTwoHealth));
         currentGame.playerOneName = playerOneName.getText().toString();
@@ -194,13 +191,13 @@ public class MainActivity extends FragmentActivity implements whoWonFragment.Not
             @Override
             public void onFinish() {
                 Log.d("Timer", "game should be saved");
-                saveGame();
+                saveScore();
             }
         }.start();
     }
 
     public void newGame(){
-        saveGame();
+        saveScore();
         JSONsaveGame();
         currentGame = new Game();
         resetGameNumbers();

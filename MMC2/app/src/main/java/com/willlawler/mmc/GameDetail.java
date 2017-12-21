@@ -36,12 +36,16 @@ public class GameDetail extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("JSONreader","position is " + objPosition);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_detail);
 
         getWindow().getDecorView().setBackgroundColor(Color.parseColor("#9E9E9E"));
 
         jsonString = readFile();
+
+        Log.d("JSON Content", jsonString);
+
 
         //This line gets teh extra information I generated when I made the intent and started this activity
         objPosition = this.getIntent().getExtras().getString("position");
@@ -51,9 +55,7 @@ public class GameDetail extends Activity {
             JSONObject g = jsonObj.getJSONObject(objPosition);
             JSONArray jsonScoreArray = g.getJSONArray("score");
 
-
-
-            TableLayout tL = (TableLayout) findViewById(R.id.tableLayout);
+            TableLayout tL = (TableLayout) findViewById(R.id.gameDetailTable);
             TableRow tbRow0 = new TableRow(this);
             TextView tv0 = new TextView(this);
 
@@ -65,6 +67,9 @@ public class GameDetail extends Activity {
             tv1.setText( g.getString("playerTwoName"));
             tv1.setGravity(Gravity.CENTER);
             tbRow0.addView(tv1);
+
+
+            //tL.setGravity(Gravity.CENTER);
 
             tL.addView(tbRow0);
             for (int i=0;i<jsonScoreArray.length(); i++){
