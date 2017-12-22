@@ -11,6 +11,7 @@ import android.os.CountDownTimer;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +28,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-public class MainActivity extends FragmentActivity implements whoWonFragment.NoticeDialogListener{
+public class MainActivity extends AppCompatActivity implements whoWonFragment.NoticeDialogListener{
 
     String JSON_FILE_NAME = "gameListSave.json";
     String jsonString;
@@ -48,8 +49,13 @@ public class MainActivity extends FragmentActivity implements whoWonFragment.Not
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 
+
         //This sets the background colour
         getWindow().getDecorView().setBackgroundColor(Color.parseColor("#9E9E9E"));
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         tvplayerTwoHealth = (TextView) findViewById(R.id.currenthealthcountplayerTwo);
         tvplayerOneHealth = (TextView) findViewById(R.id.currenthealthcountplayerOne);

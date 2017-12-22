@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     package="com.willlawler.mmc">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -10,10 +11,12 @@
         android:label="MMC"
         android:roundIcon="@drawable/ic_magic_the_gathering_pentagon"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/mmcAppTheme">
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait">
+
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,9 +25,8 @@
         </activity>
         <activity android:name=".GameList" />
         <activity android:name=".GameDetail" />
-        <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+
     </application>
+
 
 </manifest>
