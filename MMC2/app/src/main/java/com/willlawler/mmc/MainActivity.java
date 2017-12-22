@@ -14,6 +14,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -65,6 +68,28 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.general_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.new_game:
+                resetGame();
+                return true;
+            case R.id.scorespage:
+                goToListScreenTwo();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     public void playerOneHealthIncrease(View view){
         counterTimer();
         currentGame.playerOneHealth++;
@@ -111,6 +136,11 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
 
 
     public void goToListScreen(View view){
+        Intent intent = new Intent(this, GameList.class);
+        startActivity(intent);
+    }
+
+    public void goToListScreenTwo(){
         Intent intent = new Intent(this, GameList.class);
         startActivity(intent);
     }
