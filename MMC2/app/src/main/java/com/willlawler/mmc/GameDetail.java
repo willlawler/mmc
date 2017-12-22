@@ -30,43 +30,47 @@ public class GameDetail extends Activity {
     ArrayList<TextView> leftTVArray = new ArrayList<>();
     ArrayList<TextView> rightTVArray = new ArrayList<>();
 
+    String objPositionClick;
     String objPosition;
+    String objLength;
     ArrayList<String> scoreArray = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("JSONreader","position is " + objPosition);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_detail);
 
-        getWindow().getDecorView().setBackgroundColor(Color.parseColor("#9E9E9E"));
+            getWindow().getDecorView().setBackgroundColor(Color.parseColor("#9E9E9E"));
 
-        jsonString = readFile();
+            jsonString = readFile();
 
-        Log.d("JSON Content", jsonString);
+            Log.d("JSON Content", jsonString);
 
 
-        //This line gets teh extra information I generated when I made the intent and started this activity
-        objPosition = this.getIntent().getExtras().getString("position");
+            //This line gets the extra information I generated when I made the intent and started this activity
+            objPositionClick = this.getIntent().getExtras().getString("position");
+            objLength = this.getIntent().getExtras().getString("Jsonlength");
 
-        try{
-            JSONObject jsonObj =  new JSONObject(jsonString);
-            JSONObject g = jsonObj.getJSONObject(objPosition);
-            JSONArray jsonScoreArray = g.getJSONArray("score");
+            objPosition = Integer.toString(Integer.parseInt(objLength) - Integer.parseInt(objPositionClick));
 
-            TableLayout tL = (TableLayout) findViewById(R.id.gameDetailTable);
-            TableRow tbRow0 = new TableRow(this);
-            TextView tv0 = new TextView(this);
+            try{
+                JSONObject jsonObj =  new JSONObject(jsonString);
+                JSONObject g = jsonObj.getJSONObject(objPosition);
+                JSONArray jsonScoreArray = g.getJSONArray("score");
 
-            tv0.setText(g.getString("playerOneName"));
-            tv0.setGravity(Gravity.CENTER);
-            tbRow0.addView(tv0);
+                TableLayout tL = (TableLayout) findViewById(R.id.gameDetailTable);
+                TableRow tbRow0 = new TableRow(this);
+                TextView tv0 = new TextView(this);
 
-            TextView tv1 = new TextView(this);
-            tv1.setText( g.getString("playerTwoName"));
-            tv1.setGravity(Gravity.CENTER);
-            tbRow0.addView(tv1);
+                tv0.setText(g.getString("playerOneName"));
+                tv0.setGravity(Gravity.CENTER);
+                tbRow0.addView(tv0);
+
+                TextView tv1 = new TextView(this);
+                tv1.setText( g.getString("playerTwoName"));
+                tv1.setGravity(Gravity.CENTER);
+                tbRow0.addView(tv1);
 
 
             //tL.setGravity(Gravity.CENTER);

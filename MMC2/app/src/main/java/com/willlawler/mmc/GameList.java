@@ -45,8 +45,6 @@ public class GameList extends FragmentActivity implements resetScoreConfirm.Noti
         setContentView(R.layout.activity_game_list);
 
         populateTable();
-
-
     }
 
     public void populateTable(){
@@ -67,10 +65,6 @@ public class GameList extends FragmentActivity implements resetScoreConfirm.Noti
             JSONObject jsonObj =  new JSONObject(jsonString);
 
             //loop through all games
-
-
-
-
 
             for (int i=jsonObj.length()-1;i>=0;i--){
                 StringBuilder stringBuilder = new StringBuilder();
@@ -99,20 +93,17 @@ public class GameList extends FragmentActivity implements resetScoreConfirm.Noti
                     gameListArray.add(stringBuilder.toString());
                 }
             }
-
         }
         catch (final JSONException e) {
             Log.e("JSON", "Json parsing error: " + e.getMessage());
         }
 
-
         mListView = (ListView) findViewById(R.id.gamelist);
-
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, gameListArray);
         mListView.setAdapter(adapter);
 
-
         final Context context = this;
+
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
@@ -120,6 +111,14 @@ public class GameList extends FragmentActivity implements resetScoreConfirm.Noti
 
                 //this line is the key for sending extra information to the new activity
                 intent.putExtra("position", Integer.toString(position));
+                try{
+                    JSONObject jsonObj =  new JSONObject(jsonString);
+                    intent.putExtra("Jsonlength", Integer.toString(jsonObj.length()-1));
+                }
+                catch (final JSONException e) {
+                    Log.e("JSON", "Json parsing error: " + e.getMessage());
+                }
+
                 startActivity(intent);
             }
 

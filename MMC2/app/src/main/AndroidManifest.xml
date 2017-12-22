@@ -22,6 +22,9 @@
         </activity>
         <activity android:name=".GameList" />
         <activity android:name=".GameDetail" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
     </application>
 
 </manifest>

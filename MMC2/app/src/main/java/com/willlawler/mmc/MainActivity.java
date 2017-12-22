@@ -11,6 +11,7 @@ import android.os.CountDownTimer;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -45,6 +46,7 @@ public class MainActivity extends FragmentActivity implements whoWonFragment.Not
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
 
         //This sets the background colour
         getWindow().getDecorView().setBackgroundColor(Color.parseColor("#9E9E9E"));
@@ -144,7 +146,7 @@ public class MainActivity extends FragmentActivity implements whoWonFragment.Not
             currentGame.gameID = jsonLength++;
             Log.d("jsonlength = ", Integer.toString(jsonLength));
 
-            JSONObject jsonGame = new JSONObject(); // we need another object to store the addres
+            JSONObject jsonGame = new JSONObject(); // we need another object to store the address
             jsonGame.put("dateTime", date);
             jsonGame.put("playerOneName", currentGame.playerOneName);
             jsonGame.put("playerTwoName", currentGame.playerTwoName);
