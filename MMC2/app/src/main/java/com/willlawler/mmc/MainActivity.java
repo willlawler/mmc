@@ -85,6 +85,13 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
             case R.id.scorespage:
                 goToListScreenTwo();
                 return true;
+            case R.id.commanderhealth:
+                fortyHealthGame();
+                return true;
+            case R.id.normalhealth:
+                twentyHealthGame();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -124,20 +131,14 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
 
     }
 
-    public void twentyHealthGame(View view){
+    public void twentyHealthGame(){
         startingHealth = 20;
         resetGame();
     }
 
-    public void fortyHealthGame(View view){
+    public void fortyHealthGame(){
         startingHealth = 40;
         resetGame();
-    }
-
-
-    public void goToListScreen(View view){
-        Intent intent = new Intent(this, GameList.class);
-        startActivity(intent);
     }
 
     public void goToListScreenTwo(){

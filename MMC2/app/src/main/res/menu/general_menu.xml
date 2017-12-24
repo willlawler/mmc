@@ -9,5 +9,14 @@
         android:icon="@drawable/ic_add_black_24dp"
         android:title="Scores"
         android:showAsAction="ifRoom"/>
+    <item android:id="@+id/commanderhealth"
+        android:icon="@drawable/ic_add_black_24dp"
+        android:title="Change to 40 Health"
+        android:showAsAction="ifRoom"/>
+    <item android:id="@+id/normalhealth"
+        android:icon="@drawable/ic_add_black_24dp"
+        android:title="Change to 20 Health"
+        android:showAsAction="ifRoom"/>
+
 
 </menu>
