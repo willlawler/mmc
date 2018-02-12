@@ -14,10 +14,10 @@
         android:theme="@style/mmcAppTheme">
         <activity
             android:name=".MainActivity"
-
             android:screenOrientation="portrait"
             >
             <intent-filter>
+
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -25,6 +25,7 @@
         </activity>
         <activity android:name=".GameList" />
         <activity android:name=".GameDetail" />
+        <activity android:name=".GameDetailCurrent" />
 
     </application>
 

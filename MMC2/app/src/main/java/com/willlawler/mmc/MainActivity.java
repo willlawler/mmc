@@ -31,10 +31,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
+
 public class MainActivity extends AppCompatActivity implements whoWonFragment.NoticeDialogListener{
 
     String JSON_FILE_NAME = "gameListSave.json";
     String jsonString;
+    String JSON_CURRENT_GAME = "currentGameSave.json";
+    String jsonCurrentString;
     int gameID =0;
     int startingHealth = 20;
     TextView tvplayerOneHealth;
@@ -68,6 +71,13 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
 
     }
 
+    public void printJsons(){
+        String printout = readFile(JSON_FILE_NAME);
+        Log.d("JSON big Content", printout);
+        printout = readFile(JSON_CURRENT_GAME);
+        Log.d("JSON current game", printout);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -83,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
                 resetGame();
                 return true;
             case R.id.scorespage:
+                JSONsaveGameCurrent();
+                printJsons();
                 goToListScreenTwo();
                 return true;
             case R.id.commanderhealth:
@@ -96,6 +108,9 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
+
 
     public void playerOneHealthIncrease(View view){
         counterTimer();
@@ -148,7 +163,8 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
 
    // this is turning into a more "save score change" method
     public void saveScore(){
-        Log.d("IO", "Game saved");
+        Log.d("SAVING SCORE", "Saved");
+
         currentGame.scoreArray.add(Integer.toString(currentGame.playerOneHealth)+","+Integer.toString(currentGame.playerTwoHealth));
         currentGame.playerOneName = playerOneName.getText().toString();
         currentGame.playerTwoName = playerTwoName.getText().toString();
@@ -174,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String date = df.format(Calendar.getInstance().getTime());
 
-        jsonString = readFile();
+        jsonString = readFile(JSON_FILE_NAME);
         try{
             JSONObject jsonObj =  new JSONObject(jsonString);
             //JSONObject jsonObj =  new JSONObject();
@@ -201,8 +217,8 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
             jsonObj.put(Integer.toString(currentGame.gameID), jsonGame);
             //jsonObj.put(Integer.toString(gameID), jsonGame);
 
-            Log.d("Outfile", "test" + jsonObj.toString());
-            writeToFile(jsonObj.toString());
+
+            writeToFile(jsonObj.toString(), JSON_FILE_NAME);
         }
         catch (final JSONException e) {
             Log.e("JSON", "Json parsing error: " + e.getMessage());
@@ -210,6 +226,42 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
             e.printStackTrace();
         }
         gameID++;
+    }
+
+    //This Methods is to save the current game is a separate JSON file to the permanent one so That I can view the current game score.
+    public void JSONsaveGameCurrent(){
+
+
+        //Delete old current game JSON and make a new one
+        this.deleteFile(JSON_CURRENT_GAME);
+        try {
+            JSONObject jsonObj = new JSONObject();
+            writeToFile(jsonObj.toString(), JSON_CURRENT_GAME);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        jsonString = readFile(JSON_CURRENT_GAME);
+        try{
+
+            JSONObject jsonGame = new JSONObject(); // we need another object to store the address
+            jsonGame.put("playerOneName", currentGame.playerOneName);
+            jsonGame.put("playerTwoName", currentGame.playerTwoName);
+            JSONArray scoreArray = new JSONArray();
+
+            for (int i=0; i<currentGame.scoreArray.size(); i++){
+                scoreArray.put(currentGame.scoreArray.get(i));
+            }
+            jsonGame.put("score", scoreArray);
+
+
+            writeToFile(jsonGame.toString(),JSON_CURRENT_GAME);
+        }
+        catch (final JSONException e) {
+            Log.e("JSON", "Json parsing error: " + e.getMessage());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     // this timer waits for 1 second after user input and then saves the game score.
@@ -275,11 +327,11 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
         }
     }
 
-    public String readFile(){
+    public String readFile(String fileName){
         String data ="";
 
         try {
-            InputStream inputStream = openFileInput(JSON_FILE_NAME);
+            InputStream inputStream = openFileInput(fileName);
 
             if ( inputStream != null ) {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -301,13 +353,12 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
         } catch (IOException e) {
             Log.e("login activity", "Can not read file: " + e.toString());
         }
-        Log.d("Outfile", "test" + data);
         return data;
     }
 
-    public void writeToFile(String data){
+    public void writeToFile(String data, String Name){
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(JSON_FILE_NAME, Context.MODE_PRIVATE));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(Name, Context.MODE_PRIVATE));
             outputStreamWriter.write(data);
             outputStreamWriter.close();
         }
@@ -317,6 +368,9 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
 
 
     }
+
+
+
 
     @Override
     public void onBackPressed() {

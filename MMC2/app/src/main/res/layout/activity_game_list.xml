@@ -14,17 +14,35 @@
         android:onClick="fileDelete"
         android:text="Delete Scores"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/gamelist"
         app:layout_constraintRight_toRightOf="@+id/gamelist"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/gamelist" />
+        tools:layout_constraintBottom_creator="1" />
+
+    <Button
+        android:id="@+id/CurrentGameButton"
+        android:layout_width="356dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="500dp"
+        android:layout_marginTop="8dp"
+        android:onClick="CurrentGame"
+        android:text="Current Game"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintLeft_toLeftOf="@+id/gamelist"
+        app:layout_constraintRight_toRightOf="@+id/gamelist"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintBottom_creator="1" />
 
     <ListView
         android:id="@+id/gamelist"
         android:layout_width="369dp"
-        android:layout_height="571dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="16dp"
+        android:layout_height="405dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CurrentGameButton" />
 
 </android.support.constraint.ConstraintLayout>
