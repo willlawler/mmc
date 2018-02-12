@@ -1,5 +1,6 @@
 package com.willlawler.mmc;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -7,7 +8,10 @@ import android.graphics.Color;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import android.graphics.drawable.ColorDrawable;
 import android.os.CountDownTimer;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -18,8 +22,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,8 +38,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
+import javax.security.auth.login.LoginException;
 
-public class MainActivity extends AppCompatActivity implements whoWonFragment.NoticeDialogListener{
+
+public class MainActivity extends AppCompatActivity implements whoWonFragment.NoticeDialogListener, SelectColor.NoticeDialogListener{
+
 
     String JSON_FILE_NAME = "gameListSave.json";
     String jsonString;
@@ -110,8 +120,6 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
     }
 
 
-
-
     public void playerOneHealthIncrease(View view){
         counterTimer();
         currentGame.playerOneHealth++;
@@ -182,7 +190,6 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
         }
         */
     }
-
 
     public void JSONsaveGame(){
         Log.d("json", "atempted to JSONsave");
@@ -293,6 +300,106 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
         currentGame = new Game();
         resetGameNumbers();
         currentGame.scoreArray.add(Integer.toString(startingHealth)+","+Integer.toString(startingHealth));
+    }
+
+     public void changeColor (View view){
+        final View playerButton = view;
+
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.fragment_select_color);
+        ImageButton whiteButton = (ImageButton)dialog.findViewById(R.id.WhiteButton);
+        whiteButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            final public void onClick(View view) {
+                if(playerButton.getId() == R.id.ColourButtonP1){
+                    ConstraintLayout layout = (ConstraintLayout)findViewById(R.id.PlayerOneBackground);
+                    layout.setBackgroundColor(Color.parseColor("#fff9c4"));
+                    Toolbar toolbar = (Toolbar)findViewById(R.id.my_toolbar);
+                    toolbar.setBackgroundColor(Color.parseColor("#fff9c4"));
+                }
+                if(playerButton.getId() == R.id.ColourButtonP2){
+                    ConstraintLayout layout = (ConstraintLayout)findViewById(R.id.PlayerTwoBackground);
+                    layout.setBackgroundColor(Color.parseColor("#fff9c4"));
+                }
+                dialog.dismiss();
+            }
+        });
+        ImageButton blueButton = (ImageButton)dialog.findViewById(R.id.BlueButton);
+        blueButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                if(playerButton.getId() == R.id.ColourButtonP1){
+                    ConstraintLayout layout = (ConstraintLayout)findViewById(R.id.PlayerOneBackground);
+                    layout.setBackgroundColor(Color.parseColor("#64b5f6"));
+                    Toolbar toolbar = (Toolbar)findViewById(R.id.my_toolbar);
+                    toolbar.setBackgroundColor(Color.parseColor("#64b5f6"));
+                }
+                if(playerButton.getId() == R.id.ColourButtonP2){
+                    ConstraintLayout layout = (ConstraintLayout)findViewById(R.id.PlayerTwoBackground);
+                    layout.setBackgroundColor(Color.parseColor("#64b5f6"));
+                }
+                dialog.dismiss();
+            }
+        });
+        ImageButton greenButton = (ImageButton)dialog.findViewById(R.id.GreenButton);
+        greenButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                if(playerButton.getId() == R.id.ColourButtonP1){
+                    ConstraintLayout layout = (ConstraintLayout)findViewById(R.id.PlayerOneBackground);
+                    layout.setBackgroundColor(Color.parseColor("#a5d6a7"));
+                    Toolbar toolbar = (Toolbar)findViewById(R.id.my_toolbar);
+                    toolbar.setBackgroundColor(Color.parseColor("#a5d6a7"));
+                }
+                if(playerButton.getId() == R.id.ColourButtonP2){
+                    ConstraintLayout layout = (ConstraintLayout)findViewById(R.id.PlayerTwoBackground);
+                    layout.setBackgroundColor(Color.parseColor("#a5d6a7"));
+                }
+                dialog.dismiss();
+            }
+        });
+        ImageButton redButton = (ImageButton)dialog.findViewById(R.id.RedButton);
+        redButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                if(playerButton.getId() == R.id.ColourButtonP1){
+                    ConstraintLayout layout = (ConstraintLayout)findViewById(R.id.PlayerOneBackground);
+                    layout.setBackgroundColor(Color.parseColor("#ef9a9a"));
+                    Toolbar toolbar = (Toolbar)findViewById(R.id.my_toolbar);
+                    toolbar.setBackgroundColor(Color.parseColor("#ef9a9a"));
+                }
+                if(playerButton.getId() == R.id.ColourButtonP2){
+                    ConstraintLayout layout = (ConstraintLayout)findViewById(R.id.PlayerTwoBackground);
+                    layout.setBackgroundColor(Color.parseColor("#ef9a9a"));
+                }
+                dialog.dismiss();
+            }
+        });
+        ImageButton blackButton = (ImageButton)dialog.findViewById(R.id.BlackButton);
+        blackButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                if(playerButton.getId() == R.id.ColourButtonP1){
+                    ConstraintLayout layout = (ConstraintLayout)findViewById(R.id.PlayerOneBackground);
+                    layout.setBackgroundColor(Color.parseColor("#9e9e9e"));
+                    Toolbar toolbar = (Toolbar)findViewById(R.id.my_toolbar);
+                    toolbar.setBackgroundColor(Color.parseColor("#9e9e9e"));
+                }
+                if(playerButton.getId() == R.id.ColourButtonP2){
+                    ConstraintLayout layout = (ConstraintLayout)findViewById(R.id.PlayerTwoBackground);
+                    layout.setBackgroundColor(Color.parseColor("#9e9e9e"));
+                }
+                dialog.dismiss();
+            }
+        });
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
     }
 
     public void resetGameButton(View view) {

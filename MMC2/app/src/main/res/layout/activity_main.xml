@@ -10,177 +10,247 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="25dp">
 
-
     <Button
         android:id="@+id/button8"
-        android:layout_width="0dp"
+        android:layout_width="347dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="36dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginStart="32dp"
         android:onClick="resetGameButton"
         android:text="New Game"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintTop_creator="1" />
 
-    <ImageButton
-        android:id="@+id/buttonnegative"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/transparent"
-        android:onClick="playerTwoHealthDecrease"
-        android:src="@drawable/ic_remove_black_24dp"
-        android:tint="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/currenthealthcountplayerTwo"
-        app:layout_constraintEnd_toEndOf="@+id/buttonnegative"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/buttonnegative"
-        app:layout_constraintTop_toTopOf="@+id/playerTwoName"
-        app:layout_constraintVertical_bias="0.0" />
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/PlayerOneBackground"
+        android:layout_width="match_parent"
+        android:layout_height="272dp"
+        android:layout_marginTop="56dp"
+        android:rotation="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <ImageButton
+            android:id="@+id/ColourButtonP1"
+            android:layout_width="111dp"
+            android:layout_height="95dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:onClick="changeColor"
+            app:layout_constraintBottom_toBottomOf="@+id/currenthealthcountplayerOne"
+            app:layout_constraintEnd_toEndOf="@+id/currenthealthcountplayerOne"
+            app:layout_constraintStart_toStartOf="@+id/currenthealthcountplayerOne"
+            app:layout_constraintTop_toTopOf="@+id/currenthealthcountplayerOne" />
 
-    <ImageButton
-        android:id="@+id/buttonpositive"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/transparent"
-        android:onClick="playerTwoHealthIncrease"
-        android:src="@drawable/ic_add_black_24dp"
-        android:tint="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/currenthealthcountplayerTwo"
-        app:layout_constraintEnd_toEndOf="@+id/buttonpositive"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/buttonpositive"
-        app:layout_constraintTop_toTopOf="@+id/playerTwoName"
-        app:layout_constraintVertical_bias="0.0" />
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintGuide_percent="0.5" />
 
-    <TextView
-        android:id="@+id/currenthealthcountplayerTwo"
-        android:layout_width="100dp"
-        android:layout_height="80dp"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:gravity="center"
-        android:text="20"
-        android:textSize="140px"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerTwoName"
-        app:layout_constraintVertical_bias="0.055" />
+        <ImageButton
+            android:id="@+id/buttonnegative"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/transparent"
 
-    <ImageButton
-        android:id="@+id/buttonnegative"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/transparent"
-        android:onClick="playerOneHealthDecrease"
+            android:onClick="playerOneHealthDecrease"
+            android:src="@drawable/ic_remove_black_24dp"
+            android:tint="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        android:src="@drawable/ic_remove_black_24dp"
-        android:tint="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/currenthealthcountplayerOne"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/currenthealthcountplayerOne"
-        app:layout_constraintTop_toTopOf="@+id/playerOneName"
-        app:layout_constraintVertical_bias="0.0" />
+        <ImageButton
+            android:id="@+id/buttonpositive"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:onClick="playerOneHealthIncrease"
+            android:src="@drawable/ic_add_black_24dp"
+            android:tint="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/buttonpositive"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_marginLeft="13dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/transparent"
-        android:onClick="playerOneHealthIncrease"
-        android:src="@drawable/ic_add_black_24dp"
-        android:tint="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/currenthealthcountplayerOne"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toRightOf="@+id/currenthealthcountplayerOne"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/playerOneName"
-        app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/currenthealthcountplayerOne"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:gravity="center"
+            android:text="20"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            android:textColor="@color/primary_material_dark_1"
+            android:textSize="50sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonpositive"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/buttonnegative"
+            app:layout_constraintTop_toBottomOf="@+id/playerOneName"
+            app:layout_constraintVertical_bias="0.267" />
 
-    <TextView
-        android:id="@+id/currenthealthcountplayerOne"
-        android:layout_width="100dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:gravity="center"
-        android:text="20"
-        android:textSize="140px"
-        app:layout_constraintEnd_toEndOf="@+id/playerTwoName"
-        app:layout_constraintStart_toStartOf="@+id/playerTwoName"
-        app:layout_constraintTop_toBottomOf="@+id/playerOneName" />
+        <EditText
+            android:id="@+id/playerOneName"
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="16dp"
+            android:autoText="false"
+            android:background="@android:color/transparent"
 
-    <EditText
-        android:id="@+id/playerOneName"
-        android:layout_width="200dp"
-        android:layout_height="45dp"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="100dp"
-        android:background="@android:color/transparent"
-        android:cursorVisible="false"
-        android:defaultFocusHighlightEnabled="false"
-        android:elevation="20dp"
-        android:ems="10"
+            android:cursorVisible="false"
+            android:defaultFocusHighlightEnabled="false"
+            android:elevation="20dp"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:text="Player 1"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            android:textColor="@color/primary_material_dark_1"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        android:gravity="center"
-        android:inputType="textPersonName"
-        android:maxLines="1"
-        android:selectAllOnFocus="true"
-        android:text="Player 1"
-        android:textSize="80px"
-        app:layout_constraintEnd_toEndOf="@+id/currenthealthcountplayerOne"
-        app:layout_constraintStart_toStartOf="@+id/currenthealthcountplayerOne"
-        app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 
-    <EditText
-        android:id="@+id/playerTwoName"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="84dp"
-        android:background="@android:color/transparent"
-        android:cursorVisible="false"
-        android:defaultFocusHighlightEnabled="false"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="textPersonName"
-        android:maxLines="1"
-        android:selectAllOnFocus="true"
-        android:text="Player 2"
-        android:textSize="80px"
-        app:layout_constraintEnd_toEndOf="@+id/currenthealthcountplayerTwo"
-        app:layout_constraintHorizontal_bias="0.462"
-        app:layout_constraintStart_toStartOf="@+id/currenthealthcountplayerTwo"
-        app:layout_constraintTop_toBottomOf="@+id/currenthealthcountplayerOne" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
+        android:layout_width="415dp"
         android:layout_height="?attr/actionBarSize"
-        android:background="#9E9E9E"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/PlayerTwoBackground"
+        android:layout_width="match_parent"
+        android:layout_height="348dp"
+        android:layout_marginTop="328dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <EditText
+            android:id="@+id/playerTwoName"
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="48dp"
+            android:autoText="false"
+            android:background="@android:color/transparent"
+            android:cursorVisible="false"
+
+            android:defaultFocusHighlightEnabled="false"
+            android:elevation="20dp"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:text="Player 2"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            android:textColor="@color/primary_material_dark_1"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/buttonnegative"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/transparent"
+            android:onClick="playerTwoHealthDecrease"
+            android:src="@drawable/ic_remove_black_24dp"
+            android:tint="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageButton
+            android:id="@+id/buttonpositive"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="104dp"
+            android:background="@android:color/transparent"
+            android:onClick="playerTwoHealthIncrease"
+            android:src="@drawable/ic_add_black_24dp"
+            android:tint="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/currenthealthcountplayerTwo"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="132dp"
+            android:ems="10"
+            android:gravity="center"
+            android:text="20"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            android:textColor="@color/primary_material_dark_1"
+            android:textSize="50sp"
+            app:layout_constraintEnd_toStartOf="@+id/buttonpositive"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/buttonnegative"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/ColourButtonP2"
+            android:layout_width="111dp"
+            android:layout_height="95dp"
+            android:layout_marginBottom="8dp"
+            android:background="@android:color/transparent"
+            android:onClick="changeColor"
+            app:layout_constraintBottom_toBottomOf="@+id/currenthealthcountplayerTwo"
+            app:layout_constraintEnd_toEndOf="@+id/currenthealthcountplayerTwo"
+            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintStart_toStartOf="@+id/currenthealthcountplayerTwo"
+            app:layout_constraintTop_toTopOf="@+id/currenthealthcountplayerTwo"
+            app:layout_constraintVertical_bias="0.217" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.5" />
 
 
 </android.support.constraint.ConstraintLayout>

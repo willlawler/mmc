@@ -9,6 +9,8 @@ public class Game {
     String playerTwoName;
     int playerOneHealth = 20;
     int playerTwoHealth = 20;
+    String playerOneColor;
+    String playerTwoColor;
     int winningPlayer;
     ArrayList<String> scoreArray = new ArrayList<>();
 
