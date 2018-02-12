@@ -12,6 +12,7 @@ import java.util.Calendar;
 import android.graphics.drawable.ColorDrawable;
 import android.os.CountDownTimer;
 import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -40,14 +41,11 @@ import java.io.OutputStreamWriter;
 
 import javax.security.auth.login.LoginException;
 
-
 public class MainActivity extends AppCompatActivity implements whoWonFragment.NoticeDialogListener, SelectColor.NoticeDialogListener{
-
 
     String JSON_FILE_NAME = "gameListSave.json";
     String jsonString;
     String JSON_CURRENT_GAME = "currentGameSave.json";
-    String jsonCurrentString;
     int gameID =0;
     int startingHealth = 20;
     TextView tvplayerOneHealth;
@@ -63,8 +61,6 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-
 
         //This sets the background colour
         getWindow().getDecorView().setBackgroundColor(Color.parseColor("#9E9E9E"));
@@ -113,12 +109,25 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
             case R.id.normalhealth:
                 twentyHealthGame();
                 return true;
+            case R.id.ChangeOrientation:
+                ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.PlayerOneBackground);
+                if (item.isChecked()) {
+                    item.setChecked(false);
+                    //ConstraintSet set = new ConstraintSet();
+                    // set.clone(constraintLayout);
+                    constraintLayout.setRotation(0);
+                    //set.applyTo(constraintLayout);
+                }
+                else{
+                    item.setChecked(true);
+                    constraintLayout.setRotation(180);
+                }
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
     public void playerOneHealthIncrease(View view){
         counterTimer();
@@ -143,8 +152,6 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
         currentGame.playerTwoHealth--;
         tvplayerTwoHealth.setText(Integer.toString(currentGame.playerTwoHealth));
     }
-
-
 
     public void resetGameNumbers(){
         currentGame.playerOneHealth = startingHealth;
@@ -476,21 +483,7 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
 
     }
 
-
-
-
     @Override
     public void onBackPressed() {
         this.moveTaskToBack(true);
-    }
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.general_menu, menu);
-        return true;
-    }
-
-    */
-
-}
+    }}
