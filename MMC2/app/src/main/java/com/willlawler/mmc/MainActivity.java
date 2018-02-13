@@ -1,5 +1,6 @@
 package com.willlawler.mmc;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.support.constraint.ConstraintSet;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -68,6 +70,10 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
     File ExternalFile;
     String JSON_EX_FILE_NAME = "exGameListSave.json";
 
+    public MainActivity() {
+        myData = "TEST TEXT";
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
         tvplayerOneHealth = (TextView) findViewById(R.id.currenthealthcountplayerOne);
         playerOneName = (EditText)findViewById(R.id.playerOneName);
         playerTwoName = (EditText)findViewById(R.id.playerTwoName);
+
+
 
 
     }
@@ -134,9 +142,10 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
                 ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.PlayerOneBackground);
                 if (item.isChecked()) {
                     item.setChecked(false);
+                    constraintLayout.setRotation(0);
+                    // This seems to work for setRotation, for for most other things you will need to use ConstraintSet like below.
                     //ConstraintSet set = new ConstraintSet();
                     // set.clone(constraintLayout);
-                    constraintLayout.setRotation(0);
                     //set.applyTo(constraintLayout);
                 }
                 else{
@@ -145,13 +154,7 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
                 }
                 return true;
             case R.id.menu_item_share:
-                Intent shareIntent = new Intent();
-                Uri uri = Uri.parse(JSON_FILE_NAME);
-                Log.d("file uri: ", uri.toString());
-                shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.putExtra(Intent.EXTRA_STREAM, "/sdcard/documents/exGameListSave.json");
-                shareIntent.setType("file/json");
-                startActivity(shareIntent);
+                testShare();
                 return true;
             case R.id.testSave:
                 testWriteToNewFile("test");
@@ -568,14 +571,38 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
 
     }
 
-    public void testWriteToNewFile(String albumName)
 
-         {
-            // Get the directory for the user's public pictures directory.
-            File file = new File("/sdcard/Documents/", albumName);
-            file.mkdirs();
 
+
+    String filename = "SampleFile.txt";
+    String filepath = "MyFileStorage";
+    String myData;
+    File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+    File myExternalFile = new File(path, filename);
+
+    public void testWriteToNewFile(String albumName){
+        try {
+            path.mkdirs();
+
+            FileOutputStream fos = new FileOutputStream(myExternalFile, true);
+            fos.write(myData.getBytes());
+            fos.close();
         }
+        catch (IOException e) {
+            e.printStackTrace();
+            Log.w("ExternalStorage", "Error writing " + filename, e);
+        }
+    }
+
+    public void testShare(){
+        Intent shareIntent = new Intent();
+        Uri uri = Uri.parse(filename);
+        Log.d("file uri: ", uri.toString());
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        shareIntent.setType("text/plain"); // this sets the MIME for the file type. I think this means it tells the next app what type of file it is.
+        startActivity(shareIntent);
+    }
 
 
 
