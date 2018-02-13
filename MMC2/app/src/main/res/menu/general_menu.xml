@@ -28,6 +28,9 @@
         android:showAsAction="ifRoom"
         android:title="Export Game Records"
         android:actionProviderClass="android.widget.ShareActionProvider" />
+    <item android:id="@+id/testSave"
+        android:title="testSave"
+        android:showAsAction="ifRoom"/>
 
 
 </menu>

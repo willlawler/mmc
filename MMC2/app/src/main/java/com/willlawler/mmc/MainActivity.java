@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -12,6 +14,7 @@ import java.util.Calendar;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v4.app.DialogFragment;
@@ -31,6 +34,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,6 +65,9 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
     Game currentGame = new Game();
     CountDownTimer cTimer = null;
     ShareActionProvider mShareActionProvider;
+    File ExternalFile;
+    String JSON_EX_FILE_NAME = "exGameListSave.json";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,15 +146,15 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
                 return true;
             case R.id.menu_item_share:
                 Intent shareIntent = new Intent();
-
-                                Uri uri = Uri.parse(JSON_FILE_NAME);
-                printJsons();
+                Uri uri = Uri.parse(JSON_FILE_NAME);
                 Log.d("file uri: ", uri.toString());
                 shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                shareIntent.putExtra(Intent.EXTRA_STREAM, "/sdcard/documents/exGameListSave.json");
                 shareIntent.setType("file/json");
                 startActivity(shareIntent);
                 return true;
+            case R.id.testSave:
+                testWriteToNewFile("test");
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -256,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
             //jsonObj.put(Integer.toString(gameID), jsonGame);
 
 
-            writeToFile(jsonObj.toString(), JSON_FILE_NAME);
+            writeToFileEx(jsonObj.toString(), JSON_FILE_NAME);
         }
         catch (final JSONException e) {
             Log.e("JSON", "Json parsing error: " + e.getMessage());
@@ -274,7 +282,7 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
         this.deleteFile(JSON_CURRENT_GAME);
         try {
             JSONObject jsonObj = new JSONObject();
-            writeToFile(jsonObj.toString(), JSON_CURRENT_GAME);
+            writeToFileEx(jsonObj.toString(), JSON_CURRENT_GAME);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -293,7 +301,7 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
             jsonGame.put("score", scoreArray);
 
 
-            writeToFile(jsonGame.toString(),JSON_CURRENT_GAME);
+            writeToFileEx(jsonGame.toString(),JSON_CURRENT_GAME);
         }
         catch (final JSONException e) {
             Log.e("JSON", "Json parsing error: " + e.getMessage());
@@ -494,9 +502,9 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
         return data;
     }
 
-    public void writeToFile(String data, String Name){
+    public void writeToFile(String data, String fileName){
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(Name, Context.MODE_PRIVATE));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(fileName, Context.MODE_PRIVATE));
             outputStreamWriter.write(data);
             outputStreamWriter.close();
         }
@@ -507,7 +515,93 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
 
     }
 
+    public void writeToFileEx(String data, String Name){
+        ExternalFile = new File("/sdcard/Documents/exGameListSave.json");
+
+        Log.d("WillDebug", "Tried to write to file");
+        if (isExternalStorageWritable()){
+            Log.d("WillDebug", "external storage is writable");
+            try{
+                FileOutputStream fileOutput = new FileOutputStream(ExternalFile, true);
+                OutputStreamWriter outputStreamWriter=new OutputStreamWriter(fileOutput);
+                outputStreamWriter.write(data);
+                outputStreamWriter.flush();
+                fileOutput.getFD().sync();
+                outputStreamWriter.close();
+            }
+            catch(IOException e){
+                Log.e("Exception", "File write failed new: " + e.toString());
+            }
+        }
+        else{
+            Log.d("WillDebug", "external storage not writableL");
+
+        }
+
+
+
+
+
+
+
+        /*
+        if (isExternalStorageWritable()== true){
+            try{
+
+                FileOutputStream fos = new FileOutputStream(ExternalFile, true);
+                fos.write(data.getBytes());
+                fos.close();
+
+            }
+            catch(IOException e){
+                e.printStackTrace();
+                Log.e("Exception", "File write failed: " + e.toString());
+            }
+        }
+        else{
+            Toast.makeText(MainActivity.this,"Failed to export",Toast.LENGTH_SHORT).show();
+        }
+
+        */
+
+
+
+    }
+
+    public void testWriteToNewFile(String albumName)
+
+         {
+            // Get the directory for the user's public pictures directory.
+            File file = new File("/sdcard/Documents/", albumName);
+            file.mkdirs();
+
+        }
+
+
+
+    /* Checks if external storage is available for read and write */
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+    /* Checks if external storage is available to at least read */
+    public boolean isExternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state) ||
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public void onBackPressed() {
         this.moveTaskToBack(true);
     }}
+
+
+    //https://stackoverflow.com/questions/44636323/creating-folders-and-writing-files-to-external-storage

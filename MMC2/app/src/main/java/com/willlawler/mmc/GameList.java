@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -15,12 +16,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.support.v4.app.Fragment;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -37,6 +41,8 @@ public class GameList extends FragmentActivity implements resetScoreConfirm.Noti
     //TextView textView3;
     String winner;
     ArrayAdapter adapter;
+    File ExternalFile;
+    String JSON_EX_FILE_NAME = "exGameListSave.json";
 
 
     @Override
@@ -125,26 +131,6 @@ public class GameList extends FragmentActivity implements resetScoreConfirm.Noti
         });
     }
 
-/*
-    public String loadJSONFromAsset() {
-        String json;
-        try {
-            InputStream is = getAssets().open(FILE_NAME);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-
-        } catch (IOException ex) {
-            Log.d("JSONLOADER","failed for some reason");
-            ex.printStackTrace();
-            return null;
-        }
-        return json;
-    }
-    */
-
     public String readFile(){
         String data ="";
 
@@ -212,7 +198,7 @@ public class GameList extends FragmentActivity implements resetScoreConfirm.Noti
     public void createBlankJson(){
         try {
             JSONObject jsonObj = new JSONObject();
-            writeToFile(jsonObj.toString());
+            writeToFileEx(jsonObj.toString(), "");
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -228,4 +214,44 @@ public class GameList extends FragmentActivity implements resetScoreConfirm.Noti
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
+
+    public void writeToFileEx(String data, String Name){
+        ExternalFile = new File("/sdcard/documents/exGameListSave.json");
+        if (isExternalStorageWritable()== true){
+            try{
+
+                FileOutputStream fos = new FileOutputStream(ExternalFile, true);
+                fos.write(data.getBytes());
+                fos.close();
+
+            }
+            catch(IOException e){
+                e.printStackTrace();
+                Log.e("Exception", "File write failed: " + e.toString());
+            }
+        }
+        else{
+            Toast.makeText(GameList.this,"Failed to export",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /* Checks if external storage is available for read and write */
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+    /* Checks if external storage is available to at least read */
+    public boolean isExternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state) ||
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
 }
