@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
@@ -28,6 +29,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +42,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 import javax.security.auth.login.LoginException;
+
+import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity implements whoWonFragment.NoticeDialogListener, SelectColor.NoticeDialogListener{
 
@@ -55,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
     String[] nameArray;
     Game currentGame = new Game();
     CountDownTimer cTimer = null;
+    ShareActionProvider mShareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +93,15 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.general_menu, menu);
+        //MenuItem item = menu.findItem(R.id.menu_item_share);
+        //mShareActionProvider = (ShareActionProvider) item.getActionProvider();
         return true;
+    }
+
+    private void setShareIntent(Intent shareIntent) {
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
     }
 
     @Override
@@ -122,6 +135,17 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
                     item.setChecked(true);
                     constraintLayout.setRotation(180);
                 }
+                return true;
+            case R.id.menu_item_share:
+                Intent shareIntent = new Intent();
+
+                                Uri uri = Uri.parse(JSON_FILE_NAME);
+                printJsons();
+                Log.d("file uri: ", uri.toString());
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                shareIntent.setType("file/json");
+                startActivity(shareIntent);
                 return true;
 
             default:

@@ -227,9 +227,5 @@ public class GameList extends FragmentActivity implements resetScoreConfirm.Noti
         catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
-
-
     }
-
-
 }
