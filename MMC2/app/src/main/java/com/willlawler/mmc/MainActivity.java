@@ -577,8 +577,6 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
             File file = new File("/sdcard/Documents/", albumName);
             file.mkdirs();
 
-<<<<<<< HEAD
-
 
     String filename = "SampleFile.txt";
     String filepath = "MyFileStorage";
@@ -637,10 +635,6 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
         shareIntent.setType("text/plain"); // this sets the MIME for the file type. I think this means it tells the next app what type of file it is.
         startActivity(shareIntent);
     }
-=======
-        }
->>>>>>> parent of c7cd97f... more work on file export
-
 
 
     /* Checks if external storage is available for read and write */
