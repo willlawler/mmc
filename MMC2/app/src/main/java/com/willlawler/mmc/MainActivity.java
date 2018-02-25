@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 
 import java.io.File;
@@ -18,6 +19,7 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -574,6 +576,7 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
 
 
 
+
     String filename = "SampleFile.txt";
     String filepath = "MyFileStorage";
     String myData;
@@ -595,6 +598,34 @@ public class MainActivity extends AppCompatActivity implements whoWonFragment.No
     }
 
     public void testShare(){
+
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(MainActivity,
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity,
+                    Manifest.permission.READ_CONTACTS)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(MainActivity,
+                        new String[]{Manifest.permission.READ_CONTACTS},
+                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+
         Intent shareIntent = new Intent();
         Uri uri = Uri.parse(filename);
         Log.d("file uri: ", uri.toString());

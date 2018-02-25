@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     package="com.willlawler.myapplication">
 
+=======
+    package="com.example.willlawler.myapplication">
+>>>>>>> parent of 0c6ce09... Removed Test applications
 
     <application
         android:allowBackup="true"
@@ -10,7 +14,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".MainActivity">
+=======
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/app_name">
+>>>>>>> parent of 0c6ce09... Removed Test applications
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
