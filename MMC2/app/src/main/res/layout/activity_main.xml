@@ -57,13 +57,15 @@
             android:id="@+id/buttonnegative"
             android:layout_width="140dp"
             android:layout_height="140dp"
+            android:layout_marginStart="8dp"
             android:background="@android:color/transparent"
 
             android:onClick="playerOneHealthDecrease"
             android:src="@drawable/ic_remove_black_24dp"
             android:tint="@android:color/black"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="66dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/buttonpositive"
